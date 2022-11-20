@@ -8,7 +8,7 @@ install.packages("jsonlite")
 library(httr)
 library(jsonlite)
 
-endpoint<- "https://api.openweathermap.org/data/2.5/weather?q=Warszawa&appid=1765994b51ed366c506d5dc0d0b07b77&units=metric"
+endpoint<- "https://api.openweathermap.org/data/2.5/weather?q=Warszawa&appid=apikey&units=metric"
 class(endpoint)
 gotWeather<-GET(endpoint)
 gotWeather
@@ -146,6 +146,95 @@ mojaRamkaDanych[2,"imie"]
 summary(mojaRamkaDanych)
 
 
+mojaRamkaDanych$imie
+length(mojaRamkaDanych$numer)
+
+df1row=data.frame(numer=4,imie="michal", plec="m")
+
+mojaRamkaDanych <- rbind(mojaRamkaDanych,df1row)
+
+ncol(mojaRamkaDanych)
+liczbawierszy<-nrow(mojaRamkaDanych)
+for(i in 1:liczbawierszy){
+  print(mojaRamkaDanych[i,])
+}
+
+for(i in 1:liczbawierszy){
+  if(i>2)
+  print(mojaRamkaDanych[i,])
+}
+
+for(i in 1:liczbawierszy){
+  if(mojaRamkaDanych[i,"imie"]!="arek")
+    print(mojaRamkaDanych[i,])
+}
+
+# != == < > & |
+
+
+for(i in 1:liczbawierszy){
+  if((mojaRamkaDanych[i,"imie"]!="arek")& (mojaRamkaDanych[i,"imie"]!="michal"))
+    print(mojaRamkaDanych[i,])
+}
+
+for(i in 1:liczbawierszy){
+  if((mojaRamkaDanych[i,"imie"]=="arek") | (mojaRamkaDanych[i,"imie"]=="michal"))
+    print(mojaRamkaDanych[i,])
+}
+
+rm(i)
+
+i<-1
+while(i<=liczbawierszy){
+  print(i)
+  i=i+1
+  
+}
+i<-1
+while(i<=liczbawierszy){
+  print(mojaRamkaDanych[i,])
+  i=i+1
+  
+}
+
+
+podaj<-function(){
+    print("Witaj")
+
+}
+
+podaj()
+
+
+podajImie<-function(a="user"){
+  print(paste("Witaj",a,sep=" "))
+  
+}
+
+podajImie("Beata")
+
+
+podajImie<-function(a="user"){
+  print(paste("Witaj",a,sep=" "))
+  
+}
+
+podajImie()
+
+podajImie<-function(){
+  line<-readline(prompt="Podaj swoje imie:")
+  print(line)
+}
+podajImie<-function(sep=","){
+  line<-readline(prompt= paste0("Podaj swoje imie i nazwisko oddzielone przecinkiem:")
+  podzielone<-strsplit(line, sep)
+  print(paste0("imie", podzielone[[1]][1]))
+}
+
+podajImie()
+podajImie()
+
+daneDF<-read.csv("dane.csv",sep=";")
 
 
 
