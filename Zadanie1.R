@@ -70,7 +70,7 @@ stworzDataFrame <- function(ile=1, sep=","){
 #  print(podzielone[[1]] [2])
 #      print(tytul)
   
-  liczbawierszy<-ile
+  liczbawierszy<-ile-1
   if(ile>1)
     for(i in 1:liczbawierszy){
 #      print(i)
@@ -82,10 +82,14 @@ stworzDataFrame <- function(ile=1, sep=","){
 #      df1row=data.frame(numer=4,imie="michal", plec="m")
 #      mojaRamkaDanych <- rbind(mojaRamkaDanych,df1row) 
       }
-      tytul<-rbind(tytul,wiersz)
+      if(i==1)
+        macierz=wiersz
+      else
+        macierz<-rbind(macierz,wiersz)
     }
-  return(data.frame(tytul))
+  colnames(macierz)=tytul
+  return(data.frame(macierz))
 }
 
 
-stworzDataFrame(4)
+stworzDataFrame(3)
