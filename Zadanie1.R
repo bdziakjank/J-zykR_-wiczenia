@@ -44,3 +44,48 @@ y1<-daneDF$waga
 print(funkcja_corr(x1,y1))
 # Wartość 0.9793459 współczynnika korelacji Paersona
 #między wzrostem i wagą oznacza, że jest to bardzo silna korelacja
+
+
+
+#Zadanie 4
+#4. Napisz funkcję zwracającą ramke danych z danych podanych przez użytkownika
+#stworzDataFrame <- function(ile=1)
+#W pierwszym wierszu użytkownik podaje nazwy kolumn. 
+#w kolejnych wierszach zawartość wierszy ramki danych 
+#( tyle wierszy ile podaliśmy w argumencie ile. 
+#ile=1 oznacza, że gdy użytkownik nie poda żadnej wartości jako parametr, 
+#domyślna wartością będzie 1)
+
+stworzDataFrame <- function(ile=1, sep=","){
+  line<-readline(prompt= paste0("Podaj nazwy kolumn oddzielone",sep," , "))
+    
+  podzielone<-strsplit(line, sep)
+  l_kolumn<-length(podzielone[[1]])
+  tytul<-podzielone[[1]][1]
+  if(l_kolumn>1)
+    for (i in 2:l_kolumn-1)
+      tytul<-cbind(tytul,podzielone[[1]][i+1])
+#  wiersz<-data.frame(podzielone)
+#  print(l_kolumn)
+#  print(podzielone[[1]] [2])
+#      print(tytul)
+  
+  liczbawierszy<-ile
+  if(ile>1)
+    for(i in 1:liczbawierszy){
+#      print(i)
+      line_dane<-readline(prompt= paste0("Podaj ",i, " wiersz danych oddzielonych",sep))
+      podziel_dane<-strsplit(line_dane, sep)
+      wiersz<-podziel_dane[[1]][1]
+      for (j in 2:l_kolumn-1){
+        wiersz<-cbind(wiersz,podziel_dane[[1]][j+1])
+#      df1row=data.frame(numer=4,imie="michal", plec="m")
+#      mojaRamkaDanych <- rbind(mojaRamkaDanych,df1row) 
+      }
+      tytul<-rbind(tytul,wiersz)
+    }
+  return(data.frame(tytul))
+}
+
+
+stworzDataFrame(4)
