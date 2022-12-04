@@ -93,3 +93,72 @@ stworzDataFrame <- function(ile=1, sep=","){
 
 
 stworzDataFrame(3)
+
+#5 Napisz funkcję , która pobiera sciezkeKatalogu, nazweKolumny, jakaFunkcje, DlaIluPlikow i liczy: 
+#mean, median,min,max 
+#w zależności od podanej nazwy funkcji w argumencie, 
+#z katologu który podaliśmy i z tylu plików ilu podaliśmy dla wybranej nazwy kolumny. 
+# UWAGA: w podanych plikach R pobierając komórki nazwane liczbami R wstawi przed nazwy X. 
+#Funkcję przetestuj dla katalogu smogKrakow.zip.  
+#Wykonując obliczenia pomiń brakujące wartości.
+
+sciezka<-"./smogKrakow2/"
+DlaIluPlikow=2
+nazwaKolumny="X142_pressure"
+jakaFunkcja="sum"
+
+liczZplikow <- function(sciezka,nazwaKolumny,jakaFunkcja="mean",DlaIluPlikow=1){ 
+#  
+  
+#dttest<-read.csv("./smogKrakow2/0022017.csv")
+#View(dttest)  
+  lista_plikow<-list.files(sciezka) 
+  for (i in 1:DlaIluPlikow){
+    dttest<-read.csv(paste(sciezka,lista_plikow[i],sep=""))
+    if(i==1)
+      dane_z_plikow=dttest
+    else
+      dane_z_plikow<-rbind(dane_z_plikow,dttest)
+    }
+#View(dane_z_plikow) 
+
+#nazwaKolumny
+  jedna_kolumna<-select(dane_z_plikow, matches(nazwaKolumny))
+#View(jedna_kolumna)
+  jedna_kolumna_bezNA<-na.omit(jedna_kolumna)
+#  print(jedna_kolumna_bezNA)
+  if(jakaFunkcja=="mean"){
+    print(mean(jedna_kolumna_bezNA[,1]))
+#    View(jedna_kolumna_bezNA[,1])
+    wynik<-mean(jedna_kolumna_bezNA[,1])
+  }
+  else if (jakaFunkcja=="sum"){
+    wynik<-sum(jedna_kolumna_bezNA[,1])
+  }
+  else if (jakaFunkcja=="median"){
+    wynik<-median(jedna_kolumna_bezNA[,1])
+  }
+  else if (jakaFunkcja=="min"){
+    wynik<-min(jedna_kolumna_bezNA[,1])
+  }
+  else if (jakaFunkcja=="max"){
+    wynik<-max(jedna_kolumna_bezNA[,1])
+  }
+  else{
+    print("Nie ma takiej funkcji")
+  }
+  return(wynik)
+}
+# 
+# Lista plików w katalogu: 
+#   
+#   list.files(sciezka)
+# 
+# Omijanie na : na.omit(myDataFrame[[nazwaKolumny]])
+# Do złączania stringów: 
+#   
+#   paste("string1","string2",sep="TU WSTAW SEPARATOR")
+# Gdy mamy, rózne oznaczenia NA w plikach możemy wykorzystać ( w tym wypadku pusty znak i NA:
+#                                                                na.strings=c("","NA")
+
+liczZplikow(sciezka,nazwaKolumny,jakaFunkcja,DlaIluPlikow)
